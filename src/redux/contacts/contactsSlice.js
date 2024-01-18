@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts } from "./operation";
+import { fetchContacts } from "./contactsOperation";
 
 export const contactsSlice = createSlice({
   name: "contacts",
@@ -16,6 +16,9 @@ export const contactsSlice = createSlice({
     remove: (state, action) => {
       state.items = state.items.filter((contact) => contact.id !== action.payload);
       },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -33,4 +36,11 @@ export const contactsSlice = createSlice({
   },
 });
 
-export const { add, remove } = contactsSlice.actions;
+export const { add, remove, setFilter } = contactsSlice.actions;
+
+
+
+
+
+
+

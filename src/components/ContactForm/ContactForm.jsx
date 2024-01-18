@@ -1,24 +1,21 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../../redux/operation';
-import { nanoid } from 'nanoid';
-import css from './ContactForm.module.css';
+import { addContacts } from '../../redux/contacts/contactsOperation';
+import { TextField, Button } from '@mui/material';
+import { warningMessageContacts } from '../../utils/utils';
 
 const ContactForm = () => {
   const contacts = useSelector(state => state.contacts.items);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  const [phone, setNumber] = useState('');
-
-  const InputIdPhone = nanoid();
-  const InputIdName = nanoid();
+  const [number, setNumber] = useState('');
 
   const handleNameChange = e => {
     const { name, value } = e.currentTarget;
 
     switch (name) {
       case 'name':
-        setName(value.toLowerCase());
+        setName(value);
         break;
       case 'number':
         setNumber(value);
@@ -32,19 +29,14 @@ const ContactForm = () => {
     e.preventDefault();
 
     if (contacts.find(contact => contact.name === name)) {
-      alert(`${name} is already in contacts.`);
+      warningMessageContacts(name);
       reset();
       return;
     }
 
-    const user = {
-      id: 'id ' + nanoid(),
-      name,
-      phone,
-    };
+    const user = { name, number };
 
-    dispatch(addContact(user));
-
+    dispatch(addContacts(user));
     reset();
   };
 
@@ -54,36 +46,36 @@ const ContactForm = () => {
   };
 
   return (
-    <form className={css.contactForm} onSubmit={handleSubmit}>
-      <label className={css.formLabel}>
-        Name:
-        <br />
-        <input
-          className={css.formInput}
-          onChange={handleNameChange}
-          type="text"
-          value={name}
-          name="name"
-          id={InputIdName}
-          required
-        />
-      </label>
-      <label className={css.formLabel}>
-        Number:
-        <br />
-        <input
-          className={css.formInput}
-          onChange={handleNameChange}
-          type="tel"
-          value={phone}
-          name="number"
-          id={InputIdPhone}
-          required
-        />
-      </label>
-      <button type="submit" className={css.formButton}>
+    <form onSubmit={handleSubmit}>
+      <TextField
+        style={{ marginBottom: 20 }}
+        onChange={handleNameChange}
+        type="text"
+        label="Name"
+        value={name}
+        name="name"
+        fullWidth
+        id="outlined-basic"
+        required
+      />
+
+      <TextField
+        onChange={handleNameChange}
+        style={{ marginBottom: 20 }}
+        type="tel"
+        fullWidth
+        value={number}
+        name="number"
+        label="Number"
+        required
+      />
+      <Button
+        style={{ textTransform: 'none', margin: 'auto', display: 'block' }}
+        variant="contained"
+        type="submit"
+      >
         Add contact
-      </button>
+      </Button>
     </form>
   );
 };

@@ -1,28 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../../redux/filterSlice';
-import css from './Filter.module.css';
+import { setFilter } from '../../redux/contacts/contactsSlice';
+import { TextField } from '@mui/material';
 
 const Filter = () => {
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(state => state.contacts.filter);
   const dispatch = useDispatch();
 
   const handleFilterChange = e => {
-    const { value } = e.target;
-    dispatch(setFilter(value));
+    dispatch(setFilter(e.target.value));
   };
 
   return (
-    <label>
-      Filter contacts by name:
-      <br />
-      <input
-        className={css.filterInput}
-        onChange={handleFilterChange}
-        type="text"
-        name="filter"
-        value={filter}
-      />
-    </label>
+    <TextField
+      style={{ marginBottom: 15 }}
+      onChange={handleFilterChange}
+      type="text"
+      name="filter"
+      value={filter}
+      fullWidth
+      label="Find contacts by name"
+      id="outlined-basic"
+    ></TextField>
   );
 };
 
