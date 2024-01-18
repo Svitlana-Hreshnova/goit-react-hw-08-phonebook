@@ -12,7 +12,6 @@ const Home = () => {
         marginLeft: 'auto',
         marginRight: 'auto',
         width: 800,
-        color: '#19d219',
       }}
     >
       {isLoggedIn ? (
@@ -21,7 +20,6 @@ const Home = () => {
             textAlign: 'center',
             marginBottom: 20,
             fontWeight: 500,
-            color: '#19d219',
           }}
           variant="h1"
           component="h1"
