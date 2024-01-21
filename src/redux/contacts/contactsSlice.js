@@ -27,8 +27,8 @@ export const contactsSlice = createSlice({
       })
       .addCase(addContacts.rejected, (state, action) => { })
       .addCase(deleteContacts.fulfilled, (state, action) => {
-        state.items = state.items.filter((contact) => contact.id !== action.payload);
-      })
+        state.items = state.items.filter((contact) => contact.id !== action.payload.id);
+})
 },
 
 );
