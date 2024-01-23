@@ -28,7 +28,11 @@ const ContactForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (contacts.find(contact => contact.name === name)) {
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === name.toLowerCase()
+      )
+    ) {
       warningMessageContacts(name);
       reset();
       return;

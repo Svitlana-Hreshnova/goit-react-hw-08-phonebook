@@ -12,11 +12,11 @@ const ContactsPage = lazy(() => import('pages/ContactsPage/ContactsPage'));
 
 const App = () => {
   const isRefreshing = useSelector(state => state.user.isRefreshing);
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispath(refreshUser());
-  }, [dispath]);
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   return isRefreshing ? (
     '...Loading'

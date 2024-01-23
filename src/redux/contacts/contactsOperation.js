@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { setFilter } from './filterSlice';
 
 
 export const fetchContacts = createAsyncThunk(
@@ -18,16 +17,10 @@ export const fetchContacts = createAsyncThunk(
 
 export const addContacts = createAsyncThunk(
   'contacts/addContacts',
-  async (user, { rejectWithValue, dispatch, getState }) => {
+  async (user, { rejectWithValue }) => {
     try {
-      const name = user.name.toLowerCase();
-      const currentState = getState();
-      if (currentState.contacts.items.some(contact => contact.name.toLowerCase() === name)) {
-        dispatch(setFilter('Contact with the same name already exists.'));
-        return;
-      }
-
       const response = await axios.post('/contacts', user);
+      
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
